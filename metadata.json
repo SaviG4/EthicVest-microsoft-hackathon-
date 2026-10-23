@@ -1,0 +1,6 @@
+{
+  "name": "EthicVest",
+  "description": "Ethical European infrastructure investment research and portfolio decision-support platform with deterministic screening, mean-variance portfolio construction, and source-grounded AI assistant.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

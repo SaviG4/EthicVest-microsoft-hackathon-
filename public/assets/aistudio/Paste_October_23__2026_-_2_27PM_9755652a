@@ -1,0 +1,901 @@
+SECOND PROMPT: ETHICVEST — COMPLETE APP REFINEMENT, ACCESSIBILITY AND INFRASTRUCTURE INVESTMENT UPGRADE
+1. YOUR ROLE AND PRIMARY OBJECTIVE
+Act as a senior full-stack software engineer, quantitative finance engineer, AI engineer, accessibility specialist, financial-data engineer and professional UX/UI designer.
+You are modifying an existing application originally called EthicalVest AI. Its new name is EthicVest.
+This is a second-stage refinement of an existing project. The original application already contains functionality and a dashboard design that we want to retain.
+Do not rebuild the entire application from scratch. Do not discard existing working functionality, stored data, database tables or useful calculations.
+First inspect the existing application, its files, components, database, calculations, data providers and current user interface. Understand how everything works before making changes.
+Then modify the existing project to implement the requirements in this prompt.
+Preserve useful existing components, especially the Overview Dashboard, and reuse existing working functionality wherever possible.
+If the platform can inspect and modify the existing source code, make the changes directly. Do not merely return a list of suggestions, a new mock-up or instructions for us to implement manually.
+If something cannot be completed because of platform limitations, clearly identify the limitation and implement the strongest functional alternative.
+The objective is to create a polished, accessible, credible and genuinely functional financial research application that feels professionally engineered rather than automatically generated.
+
+2. THE PRODUCT: ETHICVEST
+EthicVest is an AI-assisted ethical infrastructure investment research and portfolio decision-support platform.
+It helps users investigate European infrastructure investment opportunities, screen them against a configurable ethical policy, assess their financial characteristics, compare candidates and construct a hypothetical portfolio using transparent calculations.
+The central investment theme is:
+European infrastructure, with a particular focus on renewable energy, electricity grids, energy storage and other essential infrastructure.
+Other infrastructure sectors may be included when they are relevant and supported by reliable data.
+The application must help answer:
+Which European infrastructure investment candidates satisfy the configured ethical requirements?
+Which candidates have sufficient evidence to be assessed?
+Which candidates should be excluded?
+Which candidates require further ethical investigation?
+What financial risks and historical characteristics do the candidates have?
+How could a hypothetical £100,000 portfolio be allocated under the selected investment strategy?
+Why did the system produce its results?
+What evidence supports each material conclusion?
+What should a human reviewer investigate before making a real investment decision?
+This is a research and decision-support prototype. It does not execute trades, guarantee returns or replace professional financial advice.
+The main principles remain:
+Rules determine ethical compliance. Code calculates financial metrics. Evidence supports claims. AI explains the findings. Humans retain decision-making authority.
+
+3. FIRST: AUDIT THE EXISTING APPLICATION
+Before modifying anything:
+Inspect the existing application structure and framework.
+Identify the existing Overview Dashboard and its underlying components.
+Identify the ethical screening engine, portfolio builder, investment research interface, AI analyst, data connectors and database.
+Identify which features genuinely work and which are currently static, incomplete or broken.
+Check why the existing chatbot failed to produce a response when tested with a simple message such as “hi”.
+Check whether portfolio calculations currently use real data, imported data, cached data or synthetic demonstration data.
+Identify existing API integrations, dependencies and available credentials without exposing any secrets.
+Record which database tables and stored records must be preserved.
+Make a concise internal implementation plan, then carry out the changes.
+Do not spend time recreating functionality that already works.
+Do not delete existing data or overwrite the database merely to simplify development.
+
+4. SIMPLIFY THE APPLICATION NAVIGATION
+The application must have a much simpler and more understandable structure.
+Remove the old numbered workflow labels, such as “Screen 3 — Portfolio Proposal”. Do not display screen numbers or workflow numbering in page titles.
+The left sidebar must use the following navigation, in this order:
+Portfolio Builder — default homepage and first sidebar item.
+Ethical Screening
+Investment Research
+Research Overview
+Evidence Explorer
+Data Quality
+Settings & Connections
+The Portfolio Builder must be the first screen users see when they open the application.
+The chatbot must be available globally as a floating control in the bottom-right corner, rather than occupying a separate main navigation page.
+Remove these as separate application pages
+Remove the following from the main navigation and remove their associated standalone page interfaces:
+Charity Profile.
+What-If Policy Simulator.
+Stress Testing and Scenarios.
+Audit Trail.
+Standalone AI Investment Analyst page.
+Also remove separate numbered workflow labels, duplicate navigation entries and redundant introductory sections.
+Preserve useful functionality
+Removing a page from navigation must not automatically mean deleting useful underlying functionality.
+Retain policy settings that are still needed for ethical screening.
+Retain necessary audit logging in the background if it supports traceability.
+Retain automated tests in the background to verify that the application works.
+Retain useful calculations and database operations used by other features.
+Keep the evidence and data-quality functionality accessible through the Research section.
+Retain existing working dashboard functionality.
+Do not display unnecessary technical implementation details to ordinary users.
+
+5. PORTFOLIO BUILDER MUST BE THE HOMEPAGE
+When users open EthicVest, show the Portfolio Builder first.
+The homepage should answer three questions immediately:
+What is the current hypothetical portfolio?
+How is the capital allocated?
+Why were these investments included?
+Use plain English, clear section headings, useful charts and readable financial figures.
+Homepage layout
+At the top, show:
+Portfolio name.
+A short explanation of the portfolio.
+Starting capital: £100,000 by default.
+Investment mode: Cautious or Balanced.
+Current portfolio status.
+Last calculation date.
+Data status: Live, Imported, Cached or Demonstration.
+Include a small, visible disclaimer that the portfolio is hypothetical and does not execute trades.
+Main portfolio summary
+Show a compact set of meaningful figures:
+Total capital.
+Amount allocated.
+Cash remaining.
+Estimated annual portfolio return, if validly calculated.
+Estimated annual volatility, if validly calculated.
+Sharpe ratio, if validly calculated.
+Number of included candidates.
+Number of candidates requiring further ethical investigation.
+Do not show invented numbers or placeholder performance figures as if they were genuine calculations.
+If a figure cannot be calculated, display “Unavailable” with a brief explanation.
+Portfolio allocation
+Display an allocation chart by investment candidate, using a pie chart or bar chart depending on which is easier to read.
+Each candidate should also have a clear row or card containing:
+Company or fund name.
+Investment amount.
+Portfolio weight.
+Ethical status.
+Risk information, where available.
+Data-quality status.
+A short explanation of why it was included.
+A link to view supporting evidence.
+Portfolio actions
+Provide working actions to:
+Recalculate the portfolio.
+Switch between Cautious and Balanced modes.
+View the research behind the portfolio.
+Open the AI chatbot.
+Export the portfolio results.
+Review unresolved ethical concerns.
+The controls must perform real actions rather than merely look interactive.
+
+6. PRESERVE THE EXISTING OVERVIEW DASHBOARD
+The existing Overview Dashboard is one of the parts we already like.
+Preserve its current visual design and layout exactly as much as possible.
+Do not redesign it unnecessarily.
+Do not remove its useful charts, metrics, spacing, information hierarchy or existing working interactions.
+Move the existing Overview Dashboard into the Research section and rename its navigation entry Research Overview.
+Only make the changes necessary to:
+Integrate it into the revised navigation.
+Apply the new application name and colour palette.
+Improve accessibility where required.
+Ensure the dashboard displays genuine data from the application.
+Remove obsolete references to the previous application name or removed pages.
+If any existing dashboard metrics are hard-coded, replace them with calculations from the existing data and state clearly when data is illustrative.
+Do not replace the current dashboard with a new generic dashboard.
+
+7. REPLACE THE STANDALONE AI ANALYST WITH A FLOATING CHATBOT
+Remove the separate AI Investment Analyst page from the main navigation.
+Instead, create a persistent, functional chatbot accessible through a floating button in the bottom-right corner of the application.
+The chatbot should be called EthicVest Research Assistant.
+Use a small, clear chat icon and a readable label where space permits.
+The chatbot must remain accessible while users navigate between Portfolio Builder, Ethical Screening, Investment Research, Research Overview, Evidence Explorer, Data Quality and Settings.
+Chatbot interface
+When the user opens the chatbot, display a clean chat panel containing:
+A clear heading: EthicVest Research Assistant.
+A short explanation of what the assistant can help with.
+A conversation area.
+A readable text input.
+A Send button.
+A loading indicator while the AI is processing.
+Clear error messages if the AI is unavailable.
+Suggested question prompts.
+Example suggested prompts:
+“Explain the current portfolio.”
+“Which candidates have the strongest ethical evidence?”
+“Why was this company excluded?”
+“Which candidates still need investigation?”
+“Explain the risk and return figures.”
+“Show me the sources behind this recommendation.”
+“Summarise the complete research.”
+“What are the main risks of this portfolio?”
+Fix the existing chatbot failure
+The previous chatbot returned no visible response, even to a simple greeting.
+Investigate and fix the underlying problem.
+Check the entire message flow:
+The user enters a message.
+The Send button or Enter key submits it.
+The frontend records the message.
+The backend receives the message.
+The application calls the configured AI provider.
+The provider returns a response.
+The backend validates the response.
+The frontend displays the assistant's response.
+The conversation remains visible when the chat panel is open.
+Errors are displayed clearly rather than failing silently.
+Handle API-key errors, invalid requests, rate limits, network failures, timeouts and empty responses.
+Do not show a permanently spinning loading indicator.
+Do not claim that the chatbot is functional unless a real test has confirmed that a message can receive a response.
+Greeting behaviour
+If the user types “hi”, “hello” or another simple greeting, respond naturally.
+For example:
+“Hello! I’m the EthicVest Research Assistant. I can help you understand the portfolio, explore European infrastructure investments, review ethical screening results and examine the evidence behind our findings. What would you like to explore?”
+This can be handled safely without an expensive AI request if necessary, but normal research questions must use the actual configured AI integration.
+Context-aware research answers
+The chatbot must have access to the application's current, relevant research context, including:
+The current portfolio.
+The current investment mode.
+Actual screening results.
+Included candidates.
+Excluded candidates.
+Candidates requiring further investigation.
+Available financial metrics.
+Evidence records and source URLs.
+Data publication and retrieval dates.
+Data-quality warnings.
+The calculations and constraints used to generate the portfolio.
+Do not send irrelevant or excessively large amounts of data to the model.
+Retrieve the relevant records for each question and construct a structured context.
+Full research output
+When the user asks for “the full research”, “summarise the research” or “explain the recommendations”, the chatbot should produce a structured report containing:
+Executive summary.
+European infrastructure investment universe examined.
+Ethical screening methodology.
+Top-ranked candidates under the configured scoring system.
+Candidates excluded and the reasons.
+Candidates awaiting further ethical investigation.
+Financial data and risk assessment.
+Portfolio construction method.
+Proposed allocations and portfolio metrics.
+Main risks and trade-offs.
+Data limitations.
+Source references and publication dates.
+Human-review actions.
+Use readable headings, short paragraphs, tables when helpful and links to evidence.
+If the full research is too large for a single response, divide it into clearly labelled sections and let the user request more.
+Do not fabricate research or pretend to have retrieved sources that were never loaded.
+Chatbot visual behaviour
+Open the chat panel above the application content.
+Ensure it does not obscure important buttons or navigation.
+Allow the panel to be closed and reopened.
+Preserve the conversation during ordinary navigation.
+Keep the input and Send button usable on mobile and desktop.
+Support keyboard interaction.
+Announce new responses and errors accessibly.
+Provide a visible Clear Conversation action, with confirmation if necessary.
+Do not display flashing dots or animated decorative indicators.
+A subtle, static status indicator is sufficient.
+
+8. ETHICAL SCREENING
+Keep Ethical Screening as a dedicated page.
+Its purpose is to determine whether each candidate satisfies the configured ethical requirements and whether enough evidence is available to make that determination.
+Screening statuses
+Use three clear, human-readable statuses:
+Passes required checks
+Available evidence supports compliance with the configured mandatory ethical rules. This is not a guarantee that the investment is universally ethical or financially suitable.
+Excluded
+Reliable evidence confirms a breach of a mandatory ethical rule.
+Needs ethical investigation
+The available evidence is missing, incomplete, outdated, contradictory or insufficient to determine whether the candidate complies.
+Use these labels consistently across the application.
+Ethical screening results
+For each candidate, display:
+Candidate name.
+Screening status.
+Relevant ethical rules.
+Confirmed breaches.
+Missing evidence.
+Holdings coverage, where available.
+Source documents.
+Publication date.
+Data retrieval date.
+Short explanation.
+Action to inspect evidence.
+Do not assume that missing information means zero exposure.
+Do not treat an absence of negative information as proof of ethical compliance.
+Do not let positive environmental or social characteristics cancel a mandatory exclusion.
+Candidates with uncertain ethical status
+Implement the following processing approach:
+Run the mandatory ethical checks first.
+Exclude any candidate with a confirmed mandatory breach.
+Send candidates that pass the available mandatory checks to the financial risk assessment.
+Allow candidates with unresolved ethical questions to proceed to the risk assessment as a separate, explicitly labelled group, provided there is no confirmed mandatory breach.
+Clearly label these candidates “Financially assessed — ethics require further investigation” if they pass the financial risk filter.
+Never present them as fully ethically compliant.
+Do not allow them to enter the default fully screened portfolio automatically.
+If an illustrative scenario includes them, require an explicit, visible user action and label the scenario as containing unresolved ethical concerns.
+This is important: uncertainty should not silently become approval.
+The application must distinguish between:
+Confirmed ethical compliance with the configured checks.
+Confirmed exclusion.
+Unresolved ethical status.
+Financial eligibility.
+These are different decisions.
+
+9. EUROPEAN INFRASTRUCTURE INVESTMENT RESEARCH
+Update the investment universe to focus on European infrastructure.
+Prioritise research into:
+Renewable energy.
+Offshore and onshore wind infrastructure.
+Solar infrastructure.
+Electricity transmission and distribution.
+Grid modernisation.
+Energy storage.
+Essential transport infrastructure.
+Digital infrastructure.
+Water infrastructure.
+Other relevant essential infrastructure.
+Do not automatically classify every company in these sectors as ethical.
+Evaluate the company's actual business activities and available evidence against the configured policy.
+Candidate types
+Support infrastructure investment funds, ETFs and listed infrastructure companies when their identifiers and available data allow reliable analysis.
+Keep the candidate type clearly labelled.
+Do not mix a fund with an individual company as though they were equivalent instruments.
+Where a fund is screened, use fund-level holdings and relevant indirect exposure when reliable data is available.
+Where a company is screened, use its actual business activities and credible disclosures.
+Research fields
+For each candidate, store and display where available:
+Legal name.
+Company or fund identifier.
+ISIN or ticker.
+Country of domicile.
+Main operating or investment region.
+Infrastructure category.
+Candidate type.
+Official product or company page.
+Relevant holdings or business-activity evidence.
+Financial-data source.
+Ethical evidence source.
+Data dates.
+Data completeness.
+Ethical screening outcome.
+Financial risk assessment.
+Candidate ranking and its explanation.
+European scope
+Prioritise European investment opportunities, but distinguish between:
+European-domiciled funds.
+European-listed companies.
+Companies that operate primarily in Europe.
+Funds that invest in European infrastructure.
+These categories are not interchangeable.
+Show the basis for classifying a candidate as European.
+Do not claim a company is European solely because it has a European listing.
+
+10. INVESTMENT RESEARCH PAGE: REMOVE UNNECESSARY COLUMNS
+Simplify the Investment Research page.
+Remove the following columns from the main investment research table:
+Holdings Disclosed.
+Fee.
+Data Status.
+These fields must no longer clutter the main table.
+If they remain useful, keep them in the candidate details view or Evidence Explorer.
+The main research table should prioritise:
+Candidate name.
+Country or European exposure.
+Infrastructure category.
+Candidate type.
+Ethical screening status.
+Financial risk status.
+Overall research score, where validly calculated.
+Recommendation category.
+View Details action.
+Make the table easy to scan.
+Avoid excessive technical abbreviations.
+Use clear tooltips or short explanations for terms such as volatility, Sharpe ratio and covariance.
+Do not remove important warnings merely to make the interface look simpler.
+
+11. SETTINGS AND RESET DEMO
+Replace the existing Settings & Connections navigation entry with a simpler entry called Settings & Data.
+Use a settings gear icon.
+Place the reset-demo action inside this section rather than making it a separate navigation item.
+The Settings & Data page should contain:
+AI provider configuration.
+Financial-data provider configuration.
+Connection status.
+Test Connection actions.
+Data source settings.
+Demo-data controls.
+Reset Demo button.
+A short explanation of what the reset will change.
+Reset Demo behaviour
+The Reset Demo button must be functional.
+Before resetting, show a confirmation dialog explaining that demonstration records and demonstration scenarios may be restored or reset.
+Do not delete unrelated user-created data without an explicit and separate confirmation.
+After resetting, refresh the affected pages and show a clear success or error message.
+Do not display a success message until the reset has actually completed.
+Settings behaviour
+Never display secret API-key values in full.
+Do not hard-code API keys.
+Use the platform's secret-management system or environment variables.
+Test real provider connections before marking them as connected.
+Distinguish an unavailable connector from a working connector.
+Allow the application to open and use its demo mode without API credentials.
+
+12. PORTFOLIO OPTIMISATION METHOD
+Implement the portfolio construction method below if the necessary data and computational environment are available.
+The method must be transparent, reproducible and mathematically validated.
+Method: constrained mean-variance optimisation.
+The portfolio is a hypothetical research scenario, not an instruction to invest real money.
+A. Historical price data
+For each eligible candidate with a supported price series, retrieve up to five years of daily adjusted historical prices.
+Prefer permitted data providers and official fund or company sources where appropriate.
+The application may use a financial-data provider such as Yahoo Finance only where its data access, terms and intended use permit it. Do not depend on an undocumented endpoint if a reliable supported alternative is available.
+Store:
+Instrument identifier.
+Price date.
+Adjusted close.
+Currency.
+Data provider.
+Retrieval date.
+Historical coverage.
+Validate the data before using it.
+Handle missing dates, duplicate dates, invalid values, corporate-action adjustments and incompatible currencies.
+Do not fabricate missing prices.
+If a candidate has fewer than three years of usable daily price history, display:
+Insufficient price history
+Do not treat short histories as equivalent to a full five-year record.
+Where a candidate lacks sufficient history for the selected calculation, explain whether it has been excluded from optimisation or assessed separately.
+B. Currency consistency
+The default hypothetical budget is £100,000 GBP.
+The original brief contains a $100,000 total, but the application profile is in GBP. Resolve this consistently by using £100,000 GBP throughout the default scenario.
+Do not silently mix GBP, EUR and USD.
+If instruments are priced in other currencies:
+Identify the trading currency.
+Obtain a valid, dated exchange rate if converting.
+Convert prices or returns consistently before combining them.
+Display the currency conversion assumptions and sources.
+If currency conversion data is unavailable, do not claim the combined portfolio metrics are fully comparable.
+Allow the reporting currency to be configured if the application already supports it, but GBP must be the default for this project.
+C. Risk-free rate
+The original method specifies the latest available US three-month Treasury yield from FRED.
+Retrieve the latest available observation from the appropriate FRED series if access is available and permitted.
+Display:
+Yield.
+Observation date.
+Retrieval date.
+Source.
+Units.
+Whether the value was retrieved live, imported or cached.
+Do not assume that the latest observation is today's yield.
+Important: a US Treasury yield is denominated in USD. If the portfolio is GBP-based, explain that it is a US-dollar reference rate and is not a perfectly matched GBP risk-free benchmark.
+Where feasible, allow a currency-matched benchmark to be configured separately. Do not silently substitute another rate for the original method.
+If the risk-free rate cannot be retrieved, do not fabricate a value or calculate a misleading Sharpe ratio.
+D. Expected returns
+Calculate historical annualised mean returns from valid daily total-return or appropriately adjusted price data.
+Use consistent return definitions and annualisation assumptions.
+Display:
+Observation period.
+Number of valid observations.
+Annualisation method.
+Expected annual return estimate.
+Data source and date.
+Clearly state that these are historical estimates, not reliable predictions of future performance.
+Do not present the historical mean as a guaranteed or dependable forecast.
+E. Risk estimation
+Estimate the covariance matrix of candidate returns.
+Use a documented shrinkage covariance estimator, such as Ledoit-Wolf, if the environment supports it.
+Validate the matrix before optimisation.
+Explain in plain English that covariance represents how asset returns have moved together historically and that shrinkage helps make the estimate more stable when data is limited.
+Do not use a matrix containing invalid or incompatible data.
+If the available price history is insufficient for a defensible calculation, stop the affected calculation and explain why.
+F. Cautious mode
+In Cautious mode, minimise estimated portfolio volatility subject to the configured constraints.
+Constraints should include, where supported:
+Fully or partially allocated budget.
+Non-negative weights.
+Maximum position concentration.
+Minimum diversification requirements.
+Eligible investment candidates.
+Explicit cash reserve.
+Any user-configured asset-class restrictions.
+Do not invent constraints silently.
+If the constraints cannot be satisfied, explain why and show that no valid solution was found.
+G. Balanced mode
+In Balanced mode, maximise the estimated Sharpe ratio subject to the same mandatory constraints and an appropriate cash treatment.
+Use the configured risk-free rate and portfolio-return estimate consistently.
+Do not allow an optimisation failure to generate fabricated weights.
+Do not optimise solely on the basis of historical performance without displaying the associated risks and assumptions.
+If the result is unstable, highly concentrated or sensitive to small input changes, flag that limitation.
+H. Cash reserve
+The default client profile specifies a 5% cash reserve.
+For a £100,000 portfolio, the default reserve is £5,000 and the maximum amount available for investment is £95,000.
+Show these amounts clearly.
+Do not allocate the reserved cash to investment candidates.
+If the portfolio is required to be fully allocated, clarify that this means fully allocating the investable portion after the cash reserve, not spending the reserved cash.
+I. Converting weights into amounts
+For every selected candidate, calculate:
+Optimised weight.
+Allocation percentage of total capital.
+Allocation amount in GBP.
+Allocation amount as a percentage of investable capital.
+Estimated portfolio contribution to risk, if supported by the model.
+Ethical screening status.
+Data completeness.
+Round monetary allocations to the nearest whole pound for display and export.
+Use a deterministic remainder-allocation method to resolve rounding differences.
+Validate that:
+All allocations are non-negative.
+No excluded candidate is included.
+All configured position limits are satisfied.
+The £5,000 cash reserve is preserved under the default profile.
+The sum of investments is no more than £95,000.
+Investments plus reserved cash equal £100,000 when fully allocated.
+Any unallocated amount is explicitly shown.
+Currency conversion is consistently applied.
+Do not claim that the portfolio is fully invested when the numbers do not support that claim.
+J. Portfolio-level outputs
+Display the following when validly calculated:
+Optimisation mode.
+Expected annual return estimate.
+Estimated annual volatility.
+Sharpe ratio.
+Risk-free rate used.
+Risk-free rate source and observation date.
+Historical estimation period.
+Number of price observations.
+Target volatility from the client profile, if configured.
+Investable capital.
+Cash reserve.
+Total invested amount.
+Unallocated cash.
+Optimisation constraints.
+Data-quality warnings.
+If target volatility is not configured, display “Not specified” rather than inventing it.
+If a metric cannot be calculated, display “Unavailable” and explain the reason.
+K. Efficient frontier
+Where sufficient data and a valid optimisation implementation are available, generate an efficient frontier chart.
+Show:
+Estimated annual volatility on the horizontal axis.
+Estimated annual return on the vertical axis.
+Feasible portfolios.
+The selected portfolio.
+The selected mode.
+A clear chart title and legend.
+The chart must be generated from actual optimisation results, not a decorative illustration.
+If the required inputs are unavailable, explain that the efficient frontier cannot currently be calculated.
+Do not fabricate a frontier from arbitrary coordinates.
+L. Interpretation
+Add a short explanation near the results:
+What the chosen optimisation mode attempts to achieve.
+Which constraints affect the allocation.
+Which assumptions have the greatest influence.
+Which risks are not captured by the model.
+Why historical estimates may not reflect future conditions.
+Never describe an optimised portfolio as objectively best or guaranteed to perform well.
+
+13. TOP-RANKED INFRASTRUCTURE CANDIDATES
+The application should rank candidates using a transparent, configurable scoring system.
+Do not create a single score that conceals ethical exclusions, missing data or financial risks.
+Required ranking sequence
+Apply the following order:
+Stage 1 — Mandatory ethical screening
+A confirmed mandatory breach means Excluded.
+No confirmed breach but insufficient evidence means Needs ethical investigation.
+Sufficient evidence that satisfies the configured mandatory checks means Passes required checks.
+Stage 2 — Financial-data eligibility
+Check whether the candidate has the necessary price history, identifiers, currency information and financial inputs for the chosen assessment.
+Stage 3 — Financial risk assessment
+Assess candidates using the configured financial criteria, constraints and available historical data.
+Stage 4 — Transparent ranking
+Rank the candidates that are eligible for comparison using a documented method.
+Show the component values, score weights, missing-data effects and reasons behind the ranking.
+Ethical status cannot be offset by a score
+A high financial score must never cancel a mandatory ethical exclusion.
+A strong historical return must never cancel a confirmed policy breach.
+A candidate with unresolved ethical status must not be labelled fully compliant merely because it performs well financially.
+Uncertain ethical status
+Candidates with unresolved ethical questions may proceed to the financial assessment if there is no confirmed mandatory breach.
+If they pass the financial risk filter, show them in a separate section labelled:
+Financially eligible — ethical investigation required
+These candidates must not automatically enter the default fully screened portfolio.
+Require explicit user review before including a candidate with unresolved ethical status in an illustrative scenario, and make the unresolved status visible in the allocation table, research output and export.
+Recommendation labels
+Use clear categories such as:
+Eligible for further comparison.
+Highest-ranked among eligible candidates.
+Requires ethical investigation.
+Excluded under the configured policy.
+Insufficient financial data.
+Do not use “Best investment” or “Guaranteed recommendation”.
+When the user asks for the top companies, show the highest-ranked eligible candidates and explain how they were ranked.
+Do not invent company names, holdings, scores or rankings to fill an empty result.
+If no candidate passes, explain why and show what additional evidence or data would be needed.
+
+14. SIMPLIFY THE ENTIRE USER EXPERIENCE
+The application must become much easier for a first-time user to understand.
+Avoid overwhelming users with dense technical language, excessive metrics, too many cards or unnecessary labels.
+Plain English
+Replace unnecessarily technical phrases with simple explanations.
+Examples:
+“Covariance matrix” → “How investments have moved together”.
+“Annualised volatility” → “Estimated size of historical price fluctuations per year”.
+“Sharpe ratio” → “Historical return relative to risk, using the selected reference rate”.
+“Mean-variance optimisation” → “A mathematical method for balancing estimated returns and risk”.
+“Data provenance” → “Where the information came from”.
+“Insufficient observations” → “Not enough historical data for this calculation”.
+Keep the technical term available in a tooltip or expandable explanation for users who want more detail.
+Progressive disclosure
+Show the most important information first.
+Place detailed calculations, source excerpts, assumptions and technical explanations behind expandable sections.
+Do not hide critical warnings or ethical concerns.
+Visual consistency
+Use:
+A consistent heading hierarchy.
+Short, descriptive section titles.
+Consistent button styles.
+Clear spacing.
+Readable tables.
+Useful empty states.
+Concise explanations.
+Clear success and error messages.
+Remove unnecessary technical badges, decorative elements, duplicate disclaimers, flashing dots and redundant text.
+Do not add excessive gradients, glowing cards, decorative animations, emoji-heavy financial labels or arbitrary dashboard widgets.
+The interface should feel calm, precise, human-designed and credible for financial research.
+
+15. ACCESSIBILITY REQUIREMENTS — ESSENTIAL
+Accessibility is a core product requirement, not an optional design enhancement.
+Design EthicVest so that people with different visual, hearing, motor and cognitive needs can use the application.
+Follow WCAG 2.2 Level AA principles wherever applicable and supported by the framework.
+Do not claim formal accessibility certification unless a qualified assessment has actually taken place.
+A. Colour contrast
+Use the required colour palette:
+Deep forest green: #093017
+Primary green: #2CA757
+Light green: #74D885
+Pale mint: #D3FCDA
+Use these colours thoughtfully and preserve sufficient contrast.
+The deep forest green should be the main text and navigation colour where appropriate.
+The pale mint should be used for light backgrounds and subtle surfaces.
+The primary green may be used for primary actions when the text and surrounding contrast remain accessible.
+The light green should primarily be used for accents or larger visual areas where sufficient contrast can be maintained.
+Do not place small white text on a light green background if the contrast is insufficient.
+Do not place small light-green text on pale mint.
+Check contrast ratios for normal text, large text, buttons, form controls, charts and important graphical elements.
+Aim for at least 4.5:1 contrast for normal text and 3:1 for large text and relevant interface components.
+If a requested colour combination fails contrast, adjust the foreground/background combination while keeping the overall palette recognisable.
+B. Do not use colour alone
+Ethical statuses must use text labels and, where helpful, icons as well as colour.
+For example:
+Passes required checks.
+Excluded.
+Needs ethical investigation.
+Never communicate compliance, exclusion, risk or data quality only through green, red or amber colours.
+Charts must have clear legends, labels and accessible text alternatives.
+C. Keyboard navigation
+All important functions must be usable with a keyboard.
+Support:
+Tab navigation.
+Shift+Tab navigation.
+Enter and Space to activate controls where appropriate.
+Escape to close dismissible dialogs and panels.
+Logical focus order.
+Visible keyboard focus.
+Keyboard-accessible dropdowns and tables.
+Keyboard access to the chatbot, including its input and Send button.
+Do not create keyboard traps.
+When the chatbot opens, place focus sensibly. When it closes, return focus to the button that opened it.
+D. Screen-reader compatibility
+Use semantic headings, navigation landmarks, form labels, button names, table headers and appropriate accessible names.
+Ensure interactive controls expose their purpose and state.
+Announce important status changes, loading completion, validation errors and chatbot responses to assistive technologies.
+Use live-region announcements where supported, without repeatedly reading the entire interface.
+Do not use unlabeled icon-only controls.
+E. Readability and cognitive accessibility
+Use clear, direct English.
+Avoid long paragraphs in the interface.
+Explain financial concepts in plain language.
+Use descriptive button labels such as “Recalculate portfolio” instead of ambiguous labels such as “Go”.
+Use consistent wording for the same concepts throughout the app.
+Keep layouts predictable.
+Avoid unnecessary animation, flashing, pulsing, auto-updating content that interrupts reading, or decorative movement.
+Do not flash dots while the chatbot is thinking.
+Use a restrained static “Working…” message or accessible progress indicator instead.
+Provide helpful validation messages that explain how to fix a problem.
+Do not communicate errors solely through colour or an icon.
+F. Text size and resizing
+Use a comfortable default body-text size, approximately 16 CSS pixels where the framework permits.
+Ensure users can enlarge text without breaking the layout.
+Support browser zoom and responsive reflow.
+Avoid fixed-height text containers that clip enlarged content.
+Ensure important information remains visible at narrow widths and higher zoom levels.
+G. Forms and inputs
+Every input must have a persistent visible label.
+Do not rely solely on placeholder text.
+Explain required fields.
+Show validation errors next to the relevant field and associate them with the input where possible.
+Do not erase valid user input when a validation error occurs.
+Make the chatbot input easy to identify and operate.
+H. Tables and charts
+Tables must have readable headers, sensible column widths and horizontal scrolling only when necessary.
+Avoid relying on tiny text or excessively dense tables.
+Allow users to inspect details without losing their place.
+Charts must have:
+Descriptive titles.
+Named axes.
+Units.
+Legends.
+Sufficient contrast.
+Direct labels where helpful.
+An accessible text summary of the main findings.
+Provide a table or textual summary for important chart data.
+I. Chatbot accessibility
+The chatbot must:
+Have a clearly labelled open/close control.
+Be operable entirely with a keyboard.
+Support keyboard submission of messages.
+Announce new responses to screen readers.
+Preserve readable focus behaviour.
+Avoid unexpected focus changes.
+Avoid flashing or excessive movement.
+Show errors in plain English.
+Keep sufficient contrast.
+Remain usable at mobile widths and increased zoom.
+J. Motion and preferences
+Respect reduced-motion preferences if the framework supports them.
+Avoid non-essential transitions and animation.
+Never use flashing effects or rapidly changing decorative elements.
+K. Accessibility testing
+Keep automated accessibility and functional tests in the background.
+Where practical, test:
+Keyboard navigation.
+Accessible names for controls.
+Missing form labels.
+Heading structure.
+Contrast for important text combinations.
+Chatbot keyboard behaviour.
+Responsive layouts.
+Screen-reader announcements.
+Focus management.
+Validation and error messages.
+Use automated checks as assistance, not as proof of complete accessibility.
+Manually inspect key journeys with keyboard-only navigation and, where possible, a screen reader.
+Fix obvious accessibility problems before considering the interface complete.
+
+16. COLOUR SYSTEM AND BRANDING
+Rename all user-facing instances of “EthicalVest AI” to EthicVest.
+Update the application title, logo text, browser title where supported, sidebar branding, chatbot heading, exports and report headings.
+Use this exact palette as the design foundation:
+Purpose
+Colour
+Deep forest green
+#093017
+Primary green
+#2CA757
+Light green
+#74D885
+Pale mint
+#D3FCDA
+
+Use deep forest green for important text and navigation.
+Use pale mint for subtle background surfaces.
+Use primary green for key actions and selected states when contrast is sufficient.
+Use light green sparingly for accents.
+Maintain a clean, restrained visual style.
+Do not use flashing dots.
+Do not add unnecessary animations, excessive gradients or generic AI-themed decoration.
+Do not use colour alone to indicate whether an investment passes, fails or needs investigation.
+
+17. REMOVE OBSOLETE LABELS AND TECHNICAL CLUTTER
+Remove obsolete elements referring to the previous implementation, including the old header and status blocks containing text such as:
+“Policy Rules: JRCT 2026.1”
+“Screening Status: 4 Pass · 3 Excl · 2 Inves”
+“Deterministic Python 3.10 Engine with verifiable citations.”
+“Decision Support v2026.1”
+“Research Case Study: Joseph Rowntree Charitable Trust (JRCT)”
+“Hypothetical Client: Ethical Investment Charity — Demonstration Profile”
+“Primary 4-Step Workflow / Decision Path”
+“SQLite + Python 3.10 Engine”
+Remove these specific blocks from the visible interface if they are currently present.
+Do not remove the underlying ethical rules, screening logic, database or source references that the application still requires.
+The JRCT policy may remain available as a research source within Evidence Explorer if it is genuinely used.
+The hypothetical client and £100,000 capital may remain in the application where necessary to explain the scenario, but present them naturally rather than as a dense technical banner.
+Replace implementation-oriented labels with useful user-facing explanations.
+For example:
+“EthicVest compares infrastructure candidates against the selected ethical policy, evaluates available financial evidence and explains the results.”
+Keep a concise disclaimer stating that the application is a hypothetical research prototype and does not execute trades.
+Do not display technical framework or database version labels to ordinary users.
+
+18. RESEARCH RESULTS AND EVIDENCE
+Move the research narrative, supporting evidence and detailed explanation into the Research section and floating chatbot.
+The application must support three levels of information:
+Level 1 — Quick overview
+A concise summary of the most important findings.
+Level 2 — Candidate research
+A readable explanation of why each candidate passed, was excluded, or needs investigation.
+Level 3 — Supporting evidence
+Source links, dates, relevant excerpts, financial metrics and calculation details.
+The chatbot should be able to navigate between these levels in its answers.
+When it makes a factual claim about a candidate, it should cite a source record that exists in the application.
+Do not invent citations.
+Do not claim that a source supports a conclusion unless the available source content actually supports it.
+Preserve the publication date and retrieval date for each source.
+If the source is stale or incomplete, explain that limitation.
+
+19. DATA QUALITY AND FINANCIAL LIMITATIONS
+Keep Data Quality as a simple page in the Research section.
+Show a concise overview of:
+Candidates with sufficient price history.
+Candidates with insufficient price history.
+Candidates with unresolved ethical evidence.
+Missing financial data.
+Stale source records.
+Last successful data refresh.
+Live, imported, cached and synthetic data counts.
+Failed data connections.
+Use plain-English explanations.
+Allow users to inspect the affected candidates.
+Do not present a completeness percentage as proof that the data is accurate.
+Do not claim that a fund has passed full ethical screening if the required holdings or disclosures are missing.
+Do not calculate financial metrics from invented data.
+Do not silently replace failed live data with synthetic records.
+
+20. RELIABLE AI AND FINANCIAL CALCULATIONS
+The AI chatbot must explain existing calculation results rather than independently inventing them.
+Use deterministic code for:
+Ethical policy checks.
+Financial calculations.
+Portfolio weights.
+Currency conversion.
+Allocation amounts.
+Rounding.
+Portfolio constraint validation.
+Candidate status.
+Candidate ranking calculations.
+Use the LLM for:
+Summarising research.
+Explaining candidate rankings.
+Explaining why a candidate passed or failed.
+Explaining risk and return metrics.
+Comparing alternatives.
+Identifying missing evidence.
+Answering questions about stored research.
+Suggesting what a human reviewer should investigate.
+Validate AI output against the available application records.
+If the AI cannot support a factual statement with the available evidence, it must say that the information could not be verified.
+If the AI provider is unavailable, display a clear error and keep the rest of the application working.
+Do not allow an AI failure to corrupt portfolio calculations or screening results.
+
+21. PRESERVE AND TEST EXISTING FUNCTIONALITY
+Do not remove existing working functionality unnecessarily.
+Keep automated tests in the background, even though there is no standalone Audit Trail or Automated Tests page in the visible navigation.
+After the modifications, verify:
+Portfolio Builder opens first.
+The sidebar follows the requested order.
+The existing Overview Dashboard retains its current design.
+Ethical Screening displays the correct statuses.
+Investment Research no longer shows the three unwanted columns.
+The floating chatbot opens and closes correctly.
+The chatbot responds to “hi”.
+The chatbot can retrieve actual research context.
+The chatbot can produce a sourced research summary.
+The financial calculations remain correct.
+The selected portfolio mode changes the relevant calculation.
+Cash reserves and currency totals are respected.
+Excluded candidates cannot enter the default portfolio.
+Unresolved ethical candidates remain clearly labelled.
+Reset Demo works with confirmation.
+Settings and data connections work.
+The application remains usable without API credentials in demo mode.
+Keyboard navigation works on the principal screens.
+The interface remains readable at mobile widths and increased zoom.
+Important charts and statuses have accessible alternatives.
+Existing database records remain intact.
+Automated tests run successfully where supported.
+Do not mark a test as passed unless it has actually been executed.
+If a feature is not working, identify and fix the underlying problem instead of concealing it with a static placeholder.
+
+22. FINAL ACCEPTANCE CRITERIA
+The revised application is complete when:
+The name is EthicVest.
+The Portfolio Builder is the homepage and first sidebar item.
+The navigation is simplified.
+The existing Overview Dashboard is preserved and moved into Research Overview.
+The standalone AI Investment Analyst page has been replaced by a floating chatbot in the bottom-right corner.
+The chatbot responds to simple greetings and real research questions.
+The chatbot can generate a structured research summary from actual application data.
+European infrastructure is the main investment research focus.
+Ethical screening remains a functioning, evidence-backed process.
+Candidates with unresolved ethical status cannot silently be treated as fully compliant.
+The portfolio method is implemented accurately where sufficient data is available.
+The £100,000 GBP budget and 5% cash reserve are handled consistently.
+The interface uses the specified green colour palette.
+Accessibility has been considered throughout the application.
+Flashing dots and unnecessary visual clutter have been removed.
+Settings and data connections are accessible through Settings & Data.
+Reset Demo works safely.
+Missing data and failed connections are handled honestly.
+Existing useful functionality and stored records have been preserved.
+The application has been tested after the modifications.
+23. IMPLEMENTATION INSTRUCTIONS
+Begin by inspecting the current application.
+Then implement the changes in this order:
+Preserve the existing working project and dashboard.
+Rename the application and apply the colour system.
+Simplify the navigation and make Portfolio Builder the homepage.
+Move the existing Overview Dashboard into Research Overview without unnecessarily redesigning it.
+Simplify Ethical Screening and Investment Research.
+Build or repair the floating chatbot and its research-context retrieval.
+Implement the European infrastructure investment focus.
+Implement and validate the portfolio optimisation method.
+Add accessibility improvements throughout the application.
+Move settings and connectors into Settings & Data and implement Reset Demo.
+Run the existing automated tests and add any missing essential tests.
+Verify the complete user journey.
+Prioritise working features over decorative polish.
+Do not stop after producing a plan or changing the visual design.
+At completion, report briefly:
+What changed.
+What is fully working.
+What requires API credentials.
+Which data is live, imported, cached or synthetic.
+Which tests were actually run.
+Any limitations that remain.
+Final objective: deliver a simpler, accessible, professionally designed EthicVest application that genuinely helps users research European infrastructure investment candidates, understand ethical screening results, compare financial risks, inspect evidence and explore a transparent hypothetical portfolio through a functional AI chatbot.
+

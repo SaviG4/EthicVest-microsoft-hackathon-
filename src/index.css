@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-forest: #093017;
+    --color-primary-green: #2CA757;
+    --color-light-green: #74D885;
+    --color-pale-mint: #D3FCDA;
+  }
+
+  /* Accessibility Focus Rings */
+  *:focus-visible {
+    outline: 2px solid #2CA757;
+    outline-offset: 2px;
+  }
+}
+
+/* Custom accessible helpers for EthicVest branding */
+.bg-forest {
+  background-color: #093017;
+}
+
+.text-forest {
+  color: #093017;
+}
+
+.bg-primary-green {
+  background-color: #2CA757;
+}
+
+.text-primary-green {
+  color: #2CA757;
+}
+
+.border-primary-green {
+  border-color: #2CA757;
+}
+
+.bg-light-green {
+  background-color: #74D885;
+}
+
+.text-light-green {
+  color: #74D885;
+}
+
+.bg-pale-mint {
+  background-color: #D3FCDA;
+}
+
+.text-pale-mint {
+  color: #D3FCDA;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

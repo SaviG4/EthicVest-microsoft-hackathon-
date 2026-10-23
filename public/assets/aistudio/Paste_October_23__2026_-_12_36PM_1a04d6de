@@ -1,0 +1,821 @@
+Prompt 
+
+
+
+BUILD A FULLY FUNCTIONAL FINANCIAL AI APPLICATION: ETHICALVEST AI
+1. YOUR ROLE
+Act as a senior full-stack software engineer, financial-data engineer, AI engineer, UX/UI designer and application security engineer.
+Build a complete, functional, polished application called EthicalVest AI.
+Do not build only a static dashboard, wireframe, Figma-style mock-up or presentation. Build a working end-to-end system with real interactions, a persistent database, functioning calculations, configurable ethical screening, source-grounded generative AI, data validation, error handling and automated tests.
+If an external API or API key is unavailable, implement a clearly labelled demo mode using a realistic, internally consistent sample dataset. Never pretend demo data is live or verified real-world data.
+The application is a decision-support prototype for a hypothetical charitable investment scenario. It is not a trading platform, does not execute trades, and must not claim to provide regulated financial advice.
+2. PRODUCT VISION
+EthicalVest AI helps charitable organisations investigate whether potential investments align with their ethical investment policies while considering financial risk, cost, diversification, liquidity, investment objectives and data quality.
+The application should combine:
+Publicly available financial and sustainability information.
+Official charity investment policies.
+Official fund documents and company-holdings disclosures.
+A deterministic Python-based ethical screening engine.
+Transparent financial comparison and portfolio calculations.
+Generative AI that explains findings using verified, traceable evidence.
+A human-review and audit system.
+The key product principle is:
+Rules determine compliance. Python calculates numbers. Evidence supports claims. The LLM explains results. Humans retain decision-making authority.
+Never delegate mandatory compliance rules, financial arithmetic or final investment decisions entirely to an LLM.
+3. TARGET USERS
+Design the application primarily for:
+Charity trustees and investment committees.
+Responsible-investment researchers.
+Analysts evaluating ethical investment candidates.
+Students demonstrating responsible AI in financial services.
+The first deployment is a hackathon prototype. Optimise for reliability, explainability, clarity and a polished live demonstration rather than enterprise-scale infrastructure.
+4. RESEARCH CASE STUDY AND DEMO DATA
+Use Joseph Rowntree Charitable Trust as a research case study, subject to using its actual published documents and accurately representing their contents.
+Official policy reference:
+https://www.jrct.org.uk/finance-and-investment
+Do not imply that the trust is a customer, has authorised the application or has approved any proposed portfolio.
+Create a clearly labelled hypothetical client profile:
+Name: Ethical Investment Charity — Demonstration Profile
+Starting budget: £100,000
+Currency: GBP
+Purpose: Illustrate how a charity might assess investment candidates against documented ethical restrictions and financial requirements.
+All configurable investment requirements must be editable. Do not automatically assume that every policy requirement of the real charity applies to the hypothetical client.
+If the actual policy cannot be retrieved, ask the user to upload the policy or use clearly labelled illustrative rules.
+Use a small, verified initial dataset of approximately 5–10 candidate funds where possible. Store actual source documents, identifiers, publication dates and evidence. If the necessary fund data cannot be verified, use clearly labelled synthetic records for software testing.
+Never invent a real fund's holdings, fees, performance, sustainability rating, risk score or regulatory status.
+5. TECHNOLOGY STACK
+Preferred implementation:
+Python 3.11 or a compatible supported version.
+Streamlit for the interactive web interface.
+pandas for structured financial data processing.
+SQLite for local persistent storage.
+Plotly for charts.
+Pydantic or equivalent schema validation for structured data.
+An LLM API supporting structured JSON output, where available.
+Twelve Data as an optional financial market-data provider.
+SEC EDGAR for relevant US regulatory filings.
+Official fund manager documents for fund-specific facts and holdings.
+Official charity policy documents for ethical rules.
+pytest for automated testing.
+Use a modular architecture with separate modules for the user interface, database, data providers, validation, ethical screening, portfolio calculation, AI explanations and testing.
+Do not hard-code API keys, credentials, or secrets into source code.
+Use environment variables and a documented .env.example file.
+If the platform does not support this exact stack, choose equivalent technologies supported by the platform while preserving all required functionality.
+6. APPLICATION NAVIGATION
+Create a professional sidebar with the following pages:
+Overview Dashboard
+Charity Profile
+Investment Research
+Ethical Screening
+Portfolio Builder
+AI Investment Analyst
+Evidence Explorer
+Stress Testing and Scenarios
+Audit Trail
+Settings and Data Connections
+The primary four-screen workflow must remain easy to find:
+Screen 1: Charity Profile.
+Screen 2: Ethical Screening.
+Screen 3: Portfolio Proposal.
+Screen 4: Explain My Recommendation.
+The additional pages support the primary workflow and must not be empty placeholder pages.
+Use a consistent design system across all pages.
+7. SCREEN 1 — CHARITY PROFILE
+Purpose
+Capture the charity's hypothetical investment requirements before any investment screening begins.
+A. Client identity
+Provide editable fields for:
+Client or charity name.
+Organisation type.
+Charity mission.
+Investment objective.
+Currency.
+Hypothetical starting capital.
+Profile description.
+Policy document upload.
+Policy document source URL.
+Policy version or publication date.
+Clearly identify the profile as hypothetical unless an authorised real-client profile is explicitly being used.
+B. Financial requirements
+Provide validated inputs for:
+Investment budget, default £100,000.
+Investment timeframe.
+Risk tolerance: conservative, moderate or growth-oriented.
+Liquidity needs: low, medium or high, with an explanation of what each means.
+Minimum cash reserve, if required.
+Maximum acceptable investment concentration.
+Maximum annual fee budget, if specified.
+Financial objective, such as preserving capital, generating income or long-term growth.
+Do not treat these options as a complete suitability assessment. They are inputs for the prototype's screening and comparison.
+C. Ethical policy builder
+Allow the user to create, edit, activate and deactivate policy rules.
+Each rule must contain:
+Unique rule ID.
+Rule name.
+Sector or activity.
+Rule type.
+Severity.
+Rule description.
+Evidence required.
+Source document.
+Effective date.
+Status: active or inactive.
+Review notes.
+Support rule types:
+Mandatory exclusion.
+Conditional restriction.
+Positive investment preference.
+Disclosure requirement.
+Monitoring requirement.
+Include example sectors such as:
+Fossil-fuel extraction.
+Coal production.
+Armaments.
+Tobacco.
+Gambling.
+Other activities explicitly prohibited by the hypothetical policy.
+These are examples, not universal restrictions.
+Allow positive priorities such as:
+Renewable energy.
+Biodiversity protection.
+Affordable housing.
+Social impact.
+Environmental innovation.
+Positive preferences must not override mandatory exclusions.
+D. Rule configuration
+For each sector or activity, allow the user to specify:
+Whether any exposure is prohibited.
+A maximum exposure threshold, if the policy permits one.
+Whether indirect exposure through subsidiaries or parent companies matters.
+Whether indirect fund exposure is included.
+What evidence is sufficient to confirm a breach.
+What to do when exposure is unknown.
+A missing value must not be interpreted as zero exposure.
+Do not impose a threshold unless the policy specifies it or the user explicitly configures it.
+E. Risk and objective questionnaire
+Create a short questionnaire that captures the intended use of the capital and key constraints.
+Explain each question in plain English.
+Do not infer a risk profile solely from the charity's name or mission.
+F. Profile validation
+Before proceeding, check that:
+The budget is positive.
+The currency is supported.
+The profile has an investment objective.
+Mandatory ethical rules are defined or the user explicitly chooses an illustrative policy.
+The timeframe and liquidity requirements are recorded.
+All rules have unique identifiers.
+If essential requirements are missing, show what is missing and allow the user to save a draft.
+G. Saving the profile
+Save the profile to SQLite.
+Allow users to:
+Create a new profile.
+Edit an existing profile.
+Save drafts.
+Duplicate a profile.
+Reset a profile.
+View previous versions.
+Export the profile as JSON.
+Changes to the ethical policy must create a new policy version and be recorded in the audit trail.
+8. SCREEN 2 — INVESTMENT RESEARCH AND ETHICAL SCREENING
+Purpose
+Collect, validate and compare investment candidates, then assess them against the active policy.
+A. Investment universe
+Allow the user to add candidates manually or import them from CSV.
+Store:
+Candidate ID.
+Fund name.
+Legal fund name, where available.
+ISIN, ticker or other identifier.
+Fund manager.
+Domicile.
+Asset class.
+Currency.
+Fund type.
+Official product page.
+Official factsheet URL.
+Source publication date.
+Data retrieval date.
+Data status.
+Support ETFs, mutual funds and other explicitly configured investment products where the available data permits.
+Do not mix fund-level data with individual-company data without clearly identifying the difference.
+B. Data sources
+Implement a modular provider interface so sources can be added or replaced.
+Prioritise:
+Official fund factsheets and holdings disclosures.
+Official prospectuses and sustainability disclosures.
+Official charity policy documents.
+Twelve Data, where the required fund data is available under the user's plan.
+SEC EDGAR for relevant US filings.
+Other permitted official public datasets where appropriate.
+World Bank and FRED data may provide economic or impact context but must not be treated as proof that an individual investment is ethically compliant.
+Use Yahoo Finance only where the data source, access method and licence permit the intended use.
+Kaggle datasets may be used for testing after checking their original sources, date and licence. Do not treat them as authoritative without verification.
+C. Data connector functionality
+For every connector:
+Validate the API key.
+Display connection status.
+Provide a test-connection action.
+Handle rate limits.
+Handle timeouts.
+Handle invalid responses.
+Handle unavailable endpoints.
+Record retrieval timestamps.
+Cache responses where permitted.
+Display which data fields were retrieved.
+Report missing fields.
+Distinguish live API data from imported and synthetic data.
+Never claim that a connection works until a real test succeeds.
+Do not silently replace a failed live data request with synthetic data.
+D. Data ingestion
+Build an ingestion pipeline that:
+Retrieves or imports source records.
+Normalises fund identifiers.
+Validates field types.
+Normalises dates and currencies.
+Identifies duplicate records.
+Preserves source URLs.
+Records the retrieval time.
+Marks missing fields.
+Flags stale information.
+Stores the validated records.
+Maintain both the original source values and the normalised values where practical.
+E. Holdings-level analysis
+Where reliable holdings data exists, represent each holding with:
+Holding ID.
+Fund ID.
+Company or issuer name.
+Issuer identifier, if available.
+Sector.
+Portfolio weight.
+Holding date.
+Source URL.
+Source publication date.
+Confidence or verification status.
+The screening engine should evaluate fund holdings against policy rules.
+If holdings are unavailable, do not claim that the fund passed the complete ethical screening.
+Use a status such as “Needs investigation — holdings unavailable.”
+Where the fund reports a partial holdings list, explicitly mark the screening as incomplete.
+F. Ethical screening engine
+Implement the screening engine in Python.
+Each candidate must receive one of three primary statuses:
+ELIGIBLE FOR FURTHER COMPARISON:
+Available evidence satisfies the configured mandatory checks. This does not mean the fund is automatically a suitable investment.
+EXCLUDED:
+Reliable evidence establishes a breach of a mandatory policy rule.
+NEEDS INVESTIGATION:
+Evidence is missing, outdated, contradictory, ambiguous or insufficient to make a reliable decision.
+Store a separate evidence-completeness status so users can distinguish full from partial screening.
+The engine must:
+Load the active charity policy.
+Load the available candidate data and holdings.
+Match holdings and issuers to policy sectors and activities.
+Apply mandatory exclusions.
+Apply configured exposure thresholds.
+Distinguish direct and indirect exposure when data supports it.
+Detect unknown exposure.
+Identify outdated or incomplete disclosures.
+Record the rule responsible for each finding.
+Generate a structured screening result.
+Mandatory exclusions must never be offset by a high sustainability score, strong past returns or low fees.
+If a confirmed exclusion breach exists, mark the candidate as excluded even if other data is missing.
+If no breach is confirmed but essential evidence is missing, use “Needs investigation,” not “Eligible.”
+Never infer that an investment is ethical simply because no adverse information was found.
+G. Screening results table
+Display:
+Fund name.
+Primary status.
+Evidence completeness.
+Confirmed policy breaches.
+Unresolved policy checks.
+Holdings coverage.
+Data freshness.
+Fees, if verified.
+Risk information, if verified.
+Last screening time.
+View-evidence action.
+Add filters for:
+Status.
+Sector.
+Asset class.
+Fund manager.
+Data completeness.
+Date of latest disclosure.
+Allow sorting and CSV export.
+H. Candidate details
+When a user opens a candidate, show:
+Fund overview.
+Relevant holdings.
+Sector exposures.
+Rules tested.
+Passed checks.
+Failed checks.
+Unknown checks.
+Source documents.
+Data dates.
+Data-quality warnings.
+Screening history.
+Every finding must have a rule ID, supporting evidence and an explanation of why the evidence matters.
+If the source only supports a partial conclusion, state that limitation.
+I. Screening tests
+Include test records that demonstrate:
+A candidate with a verified prohibited holding is excluded.
+A candidate with missing holdings requires investigation.
+An eligible candidate can proceed to financial comparison.
+A policy change triggers a fresh screening run.
+A stale disclosure creates a warning.
+Positive preferences do not override mandatory exclusions.
+9. SCREEN 3 — PORTFOLIO BUILDER
+Purpose
+Construct a hypothetical allocation from candidates that pass the required screening and financial constraints.
+This is a scenario-analysis tool, not an instruction to execute investments.
+A. Candidate eligibility
+Only candidates that satisfy the configured mandatory requirements may enter the allocation stage.
+Do not automatically treat “Needs investigation” candidates as eligible.
+Allow an authorised reviewer to request further evidence or record a documented review. Do not permit a reviewer to silently override a mandatory exclusion.
+B. Financial comparison
+Display the following where data is available:
+Published ongoing charges or expense ratio.
+Other disclosed fees.
+Historical performance over supported periods.
+Volatility or another supported risk measure.
+Maximum drawdown, where calculable from adequate price history.
+Asset class.
+Geographic exposure.
+Sector exposure.
+Diversification.
+Income characteristics, if relevant.
+Liquidity information, if verified.
+Currency exposure.
+Data completeness.
+Every financial metric must show its measurement period, date and source.
+Do not describe historical performance as a forecast.
+Do not fabricate volatility, risk ratings, fees, expected returns or liquidity figures.
+If the data needed for a metric is missing, display “Unavailable” and explain why.
+C. Portfolio construction settings
+Allow the user to set:
+Total budget.
+Minimum and maximum allocation per candidate.
+Maximum concentration.
+Minimum diversification requirements.
+Maximum fee budget, if specified.
+Cash reserve, if required.
+Asset-class constraints, where supported.
+Optional allocation preferences.
+All constraints must be visible and editable.
+Do not introduce hidden optimisation weights.
+D. Allocation method
+Implement a transparent baseline allocation method.
+For the hackathon, use an explainable method such as a constrained allocation based on user-defined limits and diversification rules, rather than a black-box optimiser.
+If you implement an optimisation algorithm, document the objective function, assumptions and constraints.
+Do not optimise solely for historical returns.
+Do not present an arbitrary weighted score as proof that a fund is objectively best.
+If the constraints cannot be satisfied, return a clear infeasibility message instead of producing an invalid portfolio.
+If the available data is insufficient to construct a defensible allocation, ask for more information or provide a clearly labelled illustrative scenario.
+E. Exact calculations
+Use Python's Decimal type or an equivalent decimal-safe approach for monetary calculations.
+For every proposed position, calculate:
+Allocation amount.
+Allocation percentage.
+Estimated fees, only when supported by actual fee data.
+Relevant risk information.
+Policy eligibility.
+Data completeness.
+Validate that:
+Every amount is non-negative.
+No excluded candidate is included.
+Configured position limits are respected.
+The required cash reserve is respected.
+All mandatory constraints are satisfied.
+The allocation totals exactly £100,000 when the full budget is allocated.
+Otherwise, any unallocated amount is explicitly shown.
+Use a defined rounding and remainder-allocation method to avoid penny discrepancies.
+F. Portfolio overview
+Display:
+Total capital.
+Total allocated.
+Unallocated cash.
+Allocation by fund.
+Allocation by asset class.
+Sector exposure.
+Geographic exposure, where available.
+Estimated annual fund charges, where data supports them.
+Risk and diversification summary.
+Ethical screening status.
+Missing-data warnings.
+Use charts only when the underlying data supports them.
+Do not imply that diversification eliminates investment risk.
+G. Compare alternative portfolios
+Allow the user to compare two saved hypothetical scenarios.
+Show changes in:
+Candidate selection.
+Allocation amounts.
+Fees.
+Risk indicators.
+Sector exposure.
+Geographic exposure.
+Ethical compliance.
+Data quality.
+Unallocated cash.
+Explain trade-offs without claiming that one scenario is guaranteed to perform better.
+H. Recalculation
+Whenever the user changes a policy, constraint, budget or candidate selection, recalculate the portfolio.
+Invalidate previous recommendations if the underlying policy or material source data changes.
+Show when a portfolio needs to be rebuilt or re-reviewed.
+10. SCREEN 4 — AI INVESTMENT ANALYST
+Purpose
+Use generative AI to explain the actual output of the screening and portfolio calculation engines.
+The LLM must not independently invent financial information or make unchecked eligibility decisions.
+A. Explanation generation
+Provide a button labelled “Explain My Recommendation.”
+When clicked, the application must pass a structured context to the LLM containing:
+The hypothetical client profile.
+Active policy version.
+Screening results.
+Relevant holdings evidence.
+Verified financial metrics.
+Calculated portfolio allocations.
+Constraint checks.
+Source IDs and URLs.
+Data dates.
+Missing-data warnings.
+Calculation summaries.
+B. Required explanation sections
+The LLM must produce:
+Executive summary.
+Why the proposed scenario was constructed this way.
+Why each included candidate passed the required checks.
+Why excluded candidates were excluded.
+Which candidates need further investigation.
+How the allocation satisfies configured constraints.
+Relevant fees and financial risks.
+Diversification and concentration considerations.
+Ethical trade-offs.
+Data limitations and uncertainty.
+Alternatives that could be investigated.
+Questions requiring human review.
+C. Structured output
+Require a structured JSON response with fields such as:
+summary
+proposed_scenario_id
+included_candidates
+excluded_candidates
+unresolved_candidates
+allocation_explanations
+financial_tradeoffs
+ethical_tradeoffs
+risks
+uncertainties
+required_human_reviews
+citations
+limitations
+Validate the output before rendering it.
+If structured output is invalid, retry safely or display a clear error.
+D. Grounding rules
+The system prompt must instruct the LLM to:
+Use only supplied evidence for factual claims about candidates.
+Never invent holdings, fees, performance, risk figures or source documents.
+Distinguish verified facts from interpretation.
+Identify missing information explicitly.
+Use citations linked to registered source records.
+Avoid claiming that an eligible candidate is universally ethical.
+Avoid guaranteeing returns.
+Avoid claiming a scenario is suitable for a real charity without appropriate review.
+Never override the deterministic screening engine.
+Never silently alter calculated allocation amounts.
+Never describe the prototype as having executed trades.
+E. Citation validation
+Every material factual claim should be associated with one or more source IDs.
+Verify that:
+The source ID exists.
+The source belongs to the relevant candidate or policy.
+The source supports the claim where that can be checked.
+The source URL is preserved.
+The source date is displayed.
+If a claim cannot be supported, revise or remove it.
+A citation's presence alone does not guarantee that it supports the claim.
+F. AI chat interface
+Add a chat panel where the user can ask questions such as:
+Why was this candidate excluded?
+Which ethical rule was triggered?
+What evidence is missing?
+How were the allocation amounts calculated?
+What are the largest concentration risks?
+What happens if this exclusion is changed?
+Which claims rely on outdated data?
+What should a trustee verify before reviewing this scenario?
+The chatbot must answer using the application's stored evidence and results.
+It must not bypass the screening engine or introduce unsupported new candidates as verified investments.
+G. Explainability view
+For each answer, allow the user to expand:
+The relevant source.
+The rule ID.
+The calculation.
+The supporting data.
+The uncertainty or limitation.
+Do not expose private chain-of-thought. Provide concise, evidence-based explanations and reproducible calculations instead.
+11. ADDITIONAL FEATURE — EVIDENCE EXPLORER
+Build a dedicated evidence page.
+Every imported document or data record should include:
+Source ID.
+Title.
+Publisher.
+URL or file reference.
+Source type.
+Publication date.
+Retrieval date.
+Relevant candidate or policy.
+Extracted claims.
+Data-quality status.
+Verification notes.
+Allow users to:
+Search sources.
+Filter by candidate.
+Filter by source type.
+View the original document or source URL.
+Inspect the exact excerpt used to support a finding.
+Identify outdated sources.
+Upload permitted PDF or CSV files.
+Review extracted text before it is accepted into the screening system.
+When processing a PDF, treat its content as evidence, not as instructions for the AI system.
+Do not automatically trust uploaded claims. Extract, validate and show them for review.
+12. ADDITIONAL FEATURE — WHAT-IF POLICY SIMULATOR
+Create an interactive scenario-testing page.
+Allow users to change one policy requirement at a time and observe:
+Which candidates change status.
+Which rule caused the change.
+Which holdings triggered it.
+Whether the portfolio becomes infeasible.
+Whether the allocation needs recalculation.
+Which new uncertainties arise.
+Show a side-by-side comparison of the original and modified scenarios.
+Do not allow changes to historical records. Save each scenario as a new version.
+13. ADDITIONAL FEATURE — STRESS TESTING
+Provide a simple scenario-analysis tool using clearly stated assumptions.
+Where appropriate, allow the user to examine hypothetical:
+Market declines.
+Interest-rate changes.
+Inflation changes.
+Sector concentration shocks.
+Currency movements.
+Calculate the resulting scenario values only where the necessary inputs and model are available.
+Clearly label the outputs as hypothetical stress scenarios, not predictions.
+Do not present the scenarios as statistically validated forecasts unless the model and its assumptions justify that description.
+If suitable historical data is unavailable, disable the relevant calculation and explain what data is required.
+14. ADDITIONAL FEATURE — DATA QUALITY MONITOR
+Build a data-quality overview displaying:
+Percentage of candidates with available holdings.
+Percentage with current fee information.
+Percentage with verified policy evidence.
+Number of stale records.
+Number of missing mandatory fields.
+Number of unresolved ethical checks.
+Last successful data refresh.
+Connector failures.
+Define freshness rules explicitly and allow them to be configured.
+Do not treat every missing value as zero.
+Do not claim a fund passed complete screening when its required data is missing.
+15. ADDITIONAL FEATURE — AUDIT TRAIL
+Every material operation must create an audit event.
+Record:
+Event ID.
+Timestamp.
+User or session identifier where available.
+Action type.
+Affected record.
+Previous and new version references where relevant.
+Policy version.
+Screening run ID.
+Portfolio scenario ID.
+Data source IDs.
+Calculation method version.
+LLM model and prompt-template version, where available.
+Outcome.
+Error information where relevant.
+Track policy changes, candidate imports, screening runs, portfolio generation, AI explanations, source refreshes and exports.
+Do not store API keys, passwords or unnecessary personal information in logs.
+The audit trail should help a reviewer reproduce how a particular scenario was generated from its data, policy and configuration.
+16. DATABASE DESIGN
+Use SQLite for the initial implementation.
+Create structured tables for:
+client_profiles
+policy_versions
+policy_rules
+investment_candidates
+holdings
+source_documents
+source_claims
+financial_metrics
+screening_runs
+screening_findings
+portfolio_scenarios
+portfolio_positions
+ai_explanations
+audit_events
+data_refresh_runs
+Use primary keys, foreign keys and suitable indexes.
+Preserve historical screening and portfolio records.
+Do not overwrite an earlier scenario when generating a new one.
+Use database transactions for important multi-step operations.
+Provide a database initialisation script and a sample-data seeding script.
+Include a migration strategy if the schema changes.
+17. OVERVIEW DASHBOARD
+Build a polished landing dashboard with:
+Active hypothetical client.
+Budget.
+Current policy version.
+Number of investment candidates.
+Number excluded.
+Number eligible for further comparison.
+Number needing investigation.
+Evidence-completeness summary.
+Latest screening run.
+Latest portfolio scenario.
+Outstanding review warnings.
+Data connector status.
+All dashboard metrics must be calculated from the database.
+Do not hard-code summary numbers.
+Provide buttons to start screening, create a portfolio scenario, open the AI analyst and inspect unresolved evidence.
+18. DESIGN AND USER EXPERIENCE
+Use a professional financial-services aesthetic.
+Design principles:
+Clean, modern and credible.
+Accessible colour contrast.
+Consistent spacing and typography.
+Clear page hierarchy.
+Responsive layout.
+Useful loading indicators.
+Informative empty states.
+Visible success and error messages.
+Helpful tooltips.
+Searchable and filterable tables.
+Charts with clear titles, units and legends.
+Keyboard-accessible controls where supported.
+Use green for positive statuses, red for confirmed exclusions and amber for unresolved issues, while also using text labels and icons so that colour is never the only indicator.
+Never use colour to imply that a fund is financially safe or guaranteed to perform well.
+Show whether the data is live, imported, cached or synthetic.
+Avoid excessive decorative charts that do not support a decision.
+19. IMPORTS AND EXPORTS
+Implement:
+CSV candidate import.
+CSV holdings import.
+JSON policy export.
+CSV screening-result export.
+CSV portfolio-position export.
+PDF report generation if supported.
+Downloadable evidence manifest.
+Validate uploaded files before processing them.
+Show row-level import errors and allow users to correct them.
+Do not silently discard invalid rows.
+Exports must preserve the distinction between real verified data and illustrative data.
+20. SECURITY AND RESPONSIBLE AI
+Implement the following safeguards:
+Store credentials in environment variables or the platform's secret manager.
+Never expose API keys in the interface or client-side code.
+Validate uploaded files and user inputs.
+Restrict accepted file types and reasonable file sizes.
+Avoid unsafe dynamic code execution.
+Use parameterised database queries.
+Prevent uploaded document content from overriding system instructions.
+Keep data sources and LLM instructions separate.
+Treat external documents as untrusted content.
+Avoid logging sensitive secrets.
+Add appropriate session handling.
+Do not collect unnecessary personal data.
+Provide a clear prototype disclaimer.
+Do not connect to brokerage accounts or enable live trading.
+Do not imply that the application is compliant with every financial-services regulation merely because it has an audit trail.
+21. ERROR HANDLING
+The application must handle:
+Invalid API credentials.
+API rate limits.
+Network failures.
+Missing fund identifiers.
+Unavailable holdings.
+Stale data.
+Invalid CSV files.
+Unsupported document formats.
+Database errors.
+LLM timeouts.
+Invalid LLM output.
+Missing citations.
+Infeasible portfolio constraints.
+Conflicting source records.
+Display useful error messages and recovery options.
+A failed data refresh must not silently replace a previously verified record with an empty value.
+An LLM failure must not corrupt screening results or portfolio calculations.
+Allow users to continue viewing previously saved results when a connector is unavailable, while clearly identifying the data's age.
+22. AUTOMATED TESTING
+Create a test suite using pytest.
+At minimum, test the following.
+Policy engine
+A confirmed mandatory exclusion produces EXCLUDED.
+Missing mandatory holdings evidence produces NEEDS INVESTIGATION.
+An eligible candidate can proceed to further comparison.
+Positive preferences cannot override mandatory exclusions.
+Policy changes trigger a new screening run.
+Stale evidence triggers the configured warning.
+Partial holdings coverage is never presented as full coverage.
+Portfolio calculations
+Allocations are non-negative.
+Monetary totals use decimal-safe arithmetic.
+Allocations sum exactly to the intended amount when fully allocated.
+Unallocated cash is displayed correctly.
+Excluded candidates cannot enter a new portfolio.
+Configured limits are respected.
+Infeasible constraints produce a clear error.
+Missing financial metrics do not produce fabricated values.
+AI explanation
+The LLM receives the actual screening results.
+The LLM receives the actual calculated allocations.
+Invalid citations are rejected.
+Unsupported factual claims are flagged.
+LLM failure does not corrupt stored results.
+The LLM cannot change the policy engine's result.
+Data ingestion
+Duplicate identifiers are detected.
+Invalid data is rejected with a useful error.
+Source URLs and dates are retained.
+Missing fields are identified.
+API errors are handled safely.
+Application integration
+Test the full workflow:
+Create a profile → save policy → import candidates → screen candidates → inspect evidence → create a portfolio scenario → generate AI explanation → change a rule → rerun screening → compare scenarios → inspect the audit trail.
+23. DEMONSTRATION MODE
+The application must start successfully even if API keys are not configured.
+Create a clearly labelled demo dataset that demonstrates:
+A candidate with verified illustrative prohibited exposure.
+A candidate with incomplete holdings.
+A candidate that passes the configured checks.
+Financial metrics with source and date metadata.
+A hypothetical portfolio calculation.
+A source-grounded explanation using the demo evidence.
+If any demo values are synthetic, identify them explicitly in the interface and report.
+Do not combine synthetic and live records without marking their provenance.
+Provide a “Restore demo data” action that resets the demo environment safely without deleting user data unless the user explicitly confirms that action.
+24. ACCEPTANCE CRITERIA
+Do not consider the application complete until the following requirements work.
+A user can create and save a hypothetical charity profile.
+A user can define and edit ethical policy rules.
+The application can import and validate candidate records.
+Each screening result has a reason and traceable evidence.
+Unknown data results in an investigation warning.
+Mandatory exclusions are enforced by Python.
+The user can construct and save a hypothetical portfolio scenario.
+Allocation arithmetic is correct and reproducible.
+The system shows fees and risks only where supported by data.
+The LLM explains actual system outputs and cites source records.
+Users can inspect source documents and relevant evidence.
+Changing a rule changes screening results when applicable.
+The system supports scenario comparison.
+Important actions appear in the audit trail.
+The application handles missing API keys gracefully.
+The application can run in demo mode.
+Automated tests cover the critical calculations and policy rules.
+The application clearly identifies its limitations and does not execute trades.
+25. REQUIRED BUILD DELIVERABLES
+Produce the actual application, not just instructions describing how to build it.
+Deliver:
+Complete source code.
+A clear project directory structure.
+Dependency file such as requirements.txt.
+Database initialisation and migration code.
+Demo-data seeding script.
+.env.example with placeholder variable names only.
+Data connector interfaces and supported integrations.
+Ethical screening engine.
+Portfolio calculation engine.
+LLM integration.
+Streamlit interface.
+Automated tests.
+README with setup instructions.
+API configuration guide.
+Data-source and licensing notes.
+Deployment instructions.
+A short demonstration script.
+Use modular files rather than putting all business logic in one enormous script.
+26. IMPLEMENTATION PRIORITIES
+Build in this order:
+PHASE 1: Establish the project structure, database, demo dataset and application navigation.
+PHASE 2: Implement the charity profile and configurable ethical policy engine.
+PHASE 3: Implement data ingestion, provenance tracking and candidate screening.
+PHASE 4: Implement portfolio constraints, allocation calculations and validation.
+PHASE 5: Implement the evidence explorer and AI explanation engine.
+PHASE 6: Implement the what-if simulator, audit trail and scenario comparison.
+PHASE 7: Add financial-data API integrations, connector tests and error handling.
+PHASE 8: Run the automated tests, fix critical defects, improve the interface and prepare deployment.
+At the end of each phase, verify that the implemented functionality actually works before moving on.
+If time is limited, prioritise a reliable end-to-end workflow over additional features.
+Do not claim a feature is implemented if it is only represented by a button, static example, mock response or placeholder.
+27. FINAL INSTRUCTION
+Begin by inspecting the capabilities and constraints of the current development platform.
+Then create the project structure and implement the first working version.
+Do not stop after producing a plan, design proposal or list of code snippets.
+Build the application, run the tests supported by the environment, fix errors, and clearly report:
+Which features are fully working.
+Which features require API credentials.
+Which data is live, imported or synthetic.
+Which tests passed or failed.
+What limitations remain.
+How to launch and demonstrate the application.
+The finished result should be a credible, testable financial-services AI prototype that demonstrates responsible use of generative AI, transparent ethical screening, evidence-backed reasoning and reproducible financial calculations.
+

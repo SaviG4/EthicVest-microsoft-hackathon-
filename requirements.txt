@@ -1,0 +1,8 @@
+# EthicalVest AI - Python Engine Dependencies
+# Compatible with Python 3.10 / 3.11+
+# Built with standard library zero-dependency core (sqlite3, decimal, unittest, json)
+# Optional extensions for data science & market connectors:
+pandas>=2.0.0
+pytest>=7.4.0
+pydantic>=2.0.0
+requests>=2.31.0
